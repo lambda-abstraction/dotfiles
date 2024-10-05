@@ -1,0 +1,49 @@
+# type: ignore
+import importlib
+import sys
+
+$VIRTUALENV_HOME = "/home/lambda/Env"
+$PROMPT = "{INTENSE_GREEN}[{cwd}]{RESET}\n"
+$PATH.extend([
+    "/home/lambda/Tools",
+])
+
+xontrib load zoxide
+xontrib load vox
+vox activate py312
+clear
+
+def alias(name: str):
+    def deco(func):
+        def wrapper(argv):
+            return func(*argv)
+        aliases[name] = wrapper
+        return func
+    return deco
+
+aliases.update({
+    "py": "python",
+    "cls": "clear",
+    "dpi": "ciadpi -i 127.0.0.1 -p 1080 -F --split 1 --disorder -1 --auto torst --timeout 3 --tlsrec 3+s",
+    "pixelorama": "~/Tools/Pixelorama/Pixelorama.x86_64",
+    "ror": "r2modman --no-sandbox",
+    "config": "nvim ~/.xonshrc",
+    "hypr": "nvim ~/.config/hypr",
+    "rc": "source ~/.xonshrc",
+    "discord": "vesktop -enable-features=UseOzonePlatform -ozone-platform=wayland",
+})
+
+@alias("c")
+def vscode(path: str = '.'):
+    z @(path)
+    code -r --password-store=gnome-libsecret . &
+
+@alias("n")
+def neovim(path: str = '.'):
+    z @(path)
+    nvim .
+
+@alias("ls")
+def list_files(path: str = ".", level: int = 2):
+    exa @(path) --icons --long --all --tree --level @(level)
+
