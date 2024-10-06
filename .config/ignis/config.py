@@ -16,13 +16,21 @@ hyprland = HyprlandService.get_default()
 
 def update_clock(clock_label: Widget.Label) -> None:
     time = datetime.now().strftime("(%b %d %H:%M:%S)")
-    resources = f"[CPU: {cpu_percent()}%] [RAM: {virtual_memory().percent}%]"
-    clock_label.label = f"{time} {resources}"
+    clock_label.label = time
 
 def clock() -> Widget.Label:
     clock_label = Widget.Label()
     Utils.Poll(1000, lambda x: update_clock(clock_label))
     return clock_label
+
+def update_resources(resources_label: Widget.Label) -> None:
+    resources = f"[CPU: {cpu_percent()}%] [RAM: {virtual_memory().percent}%]"
+    resources_label.label = resources 
+
+def resources() -> Widget.Label:
+    resources_label = Widget.Label()
+    Utils.Poll(1000, lambda x: update_resources(resources_label))
+    return resources_label
 
 def window_title():
     return Widget.Label(
@@ -129,11 +137,17 @@ Widget.Window(
         center_widget=Widget.Box(
             spacing=20,
             child=[
-                media(),
                 clock(),
                 speaker_volume(),
                 speaker_slider(),
             ],
-        )
+        ),
+        end_widget=Widget.Box(
+            spacing=10,
+            child=[
+                media(),
+                resources(),
+            ],
+        ),
     ),
 )
