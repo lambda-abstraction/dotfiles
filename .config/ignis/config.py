@@ -35,12 +35,13 @@ def resources() -> Widget.Label:
 def window_title():
     return Widget.Label(
         max_width_chars=60,
+        justify="left",
         label=hyprland.bind(
             "active_window",
             transform=lambda value: value.get(
                 "title",
                 "",
-            ).ljust(100),
+            )[:60].ljust(60),
         ),
     )
 
@@ -55,8 +56,9 @@ def mpris_title(player: MprisPlayer) -> Widget.Box:
         child=[
             Widget.Icon(image="audio-x-generic-symbolic"),
             Widget.Label(
-                max_width_chars=20,
-                label=player.bind("title"),
+                max_width_chars=60,
+                justify="left",
+                label=player.bind("title", lambda title: title[:60].ljust(60)),
             ),
         ]
     )
@@ -143,7 +145,7 @@ Widget.Window(
             ],
         ),
         end_widget=Widget.Box(
-            spacing=10,
+            spacing=30,
             child=[
                 media(),
                 resources(),

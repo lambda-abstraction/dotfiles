@@ -1,11 +1,21 @@
 # type: ignore
 import importlib
 import sys
+from xonsh.tools import EnvPath
 
 $VIRTUALENV_HOME = "/home/lambda/Env"
 $PROMPT = "{INTENSE_GREEN}[{cwd}]{RESET}\n"
 $PATH.extend([
     "/home/lambda/Tools",
+    "/home/lambda/.ghcup/bin",
+])
+INCLUDE_PATH = [
+    "/usr/local/share/koka/v3.1.2/kklib/include",
+]
+$C_INCLUDE_PATH = EnvPath(INCLUDE_PATH)
+$CPLUS_INCLUDE_PATH = EnvPath(INCLUDE_PATH)
+$LD_LIBRARY_PATH = EnvPath([
+    "/usr/local/lib",
 ])
 
 xontrib load zoxide
@@ -24,7 +34,7 @@ def alias(name: str):
 aliases.update({
     "py": "python",
     "cls": "clear",
-    "dpi": "ciadpi -i 127.0.0.1 -p 1080 -F --split 1 --disorder -1 --auto torst --timeout 3 --tlsrec 3+s",
+    "dpi": "ciadpi -i 127.0.0.1 -p 1080 -F --split 1 --fake 1 --disorder -1 --auto torst --timeout 3 --tlsrec 3+s --debug 1",
     "pixelorama": "~/Tools/Pixelorama/Pixelorama.x86_64",
     "ror": "r2modman --no-sandbox",
     "config": "nvim ~/.xonshrc",
