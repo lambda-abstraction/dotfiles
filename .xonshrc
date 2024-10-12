@@ -8,6 +8,7 @@ $PROMPT = "{INTENSE_GREEN}[{cwd}]{RESET}\n"
 $PATH.extend([
     "/home/lambda/Tools",
     "/home/lambda/.ghcup/bin",
+    "/home/lambda/FOSS/zapret/binaries/x86_64",
 ])
 INCLUDE_PATH = [
     "/usr/local/share/koka/v3.1.2/kklib/include",
