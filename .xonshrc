@@ -5,10 +5,12 @@ from xonsh.tools import EnvPath
 
 $VIRTUALENV_HOME = "/home/lambda/Env"
 $PROMPT = "{INTENSE_GREEN}[{cwd}]{RESET}\n"
+PNPM = "/home/lambda/Env/pnpmenv"
+$PNPM_HOME = PNPM
 $PATH.extend([
     "/home/lambda/Tools",
     "/home/lambda/.ghcup/bin",
-    "/home/lambda/FOSS/zapret/binaries/x86_64",
+    PNPM,
 ])
 INCLUDE_PATH = [
     "/usr/local/share/koka/v3.1.2/kklib/include",
