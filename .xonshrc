@@ -2,29 +2,7 @@
 import importlib
 import sys
 from xonsh.tools import EnvPath
-
-$VIRTUALENV_HOME = "/home/lambda/Env"
-$PROMPT = "{INTENSE_GREEN}[{cwd}]{RESET}\n"
-PNPM = "/home/lambda/Env/pnpmenv"
-$PNPM_HOME = PNPM
-$PATH.extend([
-    "/home/lambda/Tools",
-    "/home/lambda/.ghcup/bin",
-    PNPM,
-])
-INCLUDE_PATH = [
-    "/usr/local/share/koka/v3.1.2/kklib/include",
-]
-$C_INCLUDE_PATH = EnvPath(INCLUDE_PATH)
-$CPLUS_INCLUDE_PATH = EnvPath(INCLUDE_PATH)
-$LD_LIBRARY_PATH = EnvPath([
-    "/usr/local/lib",
-])
-
-xontrib load zoxide
-xontrib load vox
-vox activate py312
-clear
+from pathlib import Path
 
 def alias(name: str):
     def deco(func):
@@ -34,16 +12,44 @@ def alias(name: str):
         return func
     return deco
 
+def path(s: str) -> str:
+    return str(Path(s).expanduser())
+
+
+$VIRTUALENV_HOME = path("~/Env")
+xontrib load zoxide
+xontrib load vox
+vox activate py312
+clear
+
+
+$PROMPT = "{INTENSE_GREEN}[{cwd}]{RESET}\n"
+$PNPM_HOME = path("~/Env/pnpm")
+$PATH.add("/usr/lib/ccache/bin", front=True)
+$PATH.extend([
+    path("~/Bin"),
+    path("~/.ghcup/bin"),
+    $PNPM_HOME,
+])
+
+
+INCLUDE_PATH = [
+    "/usr/local/share/koka/v3.1.2/kklib/include",
+]
+$C_INCLUDE_PATH = EnvPath(INCLUDE_PATH)
+$CPLUS_INCLUDE_PATH = EnvPath(INCLUDE_PATH)
+$LD_LIBRARY_PATH = EnvPath([
+    "/usr/local/lib",
+])
+
+
 aliases.update({
     "py": "python",
     "cls": "clear",
     "dpi": "ciadpi -i 127.0.0.1 -p 1080 -s1 -q1 -Y -Ar -s5 -o1+s -At -f-1 -r1+s -As -s1 -o1 +s -s-1 -An --debug 1",
-    "pixelorama": "~/Tools/Pixelorama/Pixelorama.x86_64",
+    "pixelorama": "~/Bin/Pixelorama/Pixelorama.x86_64",
     "ror": "r2modman --no-sandbox",
     "config": "nvim ~/.xonshrc",
-    "hypr": "nvim ~/.config/hypr",
-    "rc": "source ~/.xonshrc",
-    "discord": "vesktop -enable-features=UseOzonePlatform -ozone-platform=wayland",
 })
 
 @alias("c")
@@ -59,4 +65,3 @@ def neovim(path: str = '.'):
 @alias("ls")
 def list_files(path: str = ".", level: int = 2):
     exa @(path) --icons --long --all --tree --level @(level)
-
