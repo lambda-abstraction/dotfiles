@@ -29,6 +29,7 @@ $PATH.add("/usr/lib/ccache/bin", front=True)
 $PATH.extend([
     path("~/Bin"),
     path("~/.ghcup/bin"),
+    path("~/.cargo/bin"),
     $PNPM_HOME,
 ])
 
@@ -46,7 +47,7 @@ $LD_LIBRARY_PATH = EnvPath([
 aliases.update({
     "py": "python",
     "cls": "clear",
-    "dpi": "ciadpi -i 127.0.0.1 -p 1080 -s1 -q1 -Y -Ar -s5 -o1+s -At -f-1 -r1+s -As -s1 -o1 +s -s-1 -An --debug 1",
+    "dpi": "ciadpi -s1 -q1 -Y -At -T5 -b1000 -S -f-1 -r1+sm -As --debug 1",
     "pixelorama": "~/Bin/Pixelorama/Pixelorama.x86_64",
     "ror": "r2modman --no-sandbox",
     "config": "nvim ~/.xonshrc",
