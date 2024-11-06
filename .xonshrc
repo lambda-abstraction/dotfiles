@@ -36,6 +36,7 @@ $PATH.extend([
 
 INCLUDE_PATH = [
     "/usr/local/share/koka/v3.1.2/kklib/include",
+    "/home/lambda/.ghcup/ghc/9.10.1/lib/ghc-9.10.1/lib/x86_64-linux-ghc-9.10.1/rts-1.0.2/include",
 ]
 $C_INCLUDE_PATH = EnvPath(INCLUDE_PATH)
 $CPLUS_INCLUDE_PATH = EnvPath(INCLUDE_PATH)
@@ -47,7 +48,7 @@ $LD_LIBRARY_PATH = EnvPath([
 aliases.update({
     "py": "python",
     "cls": "clear",
-    "dpi": "ciadpi -s1 -q1 -Y -At -T5 -b1000 -S -f-1 -r1+sm -As --debug 1",
+    "dpi": "ciadpi -s1 -q1 -Y -Ar -s5 -o1+s -At -f-1 -r1+s -As -s1 -o1 +s -s-1 -An",
     "pixelorama": "~/Bin/Pixelorama/Pixelorama.x86_64",
     "ror": "r2modman --no-sandbox",
     "config": "nvim ~/.xonshrc",
