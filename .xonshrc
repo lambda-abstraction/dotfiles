@@ -29,6 +29,7 @@ $PATH.add("/usr/lib/ccache/bin", front=True)
 $PATH.extend([
     path("~/Bin"),
     path("~/.ghcup/bin"),
+    path("~/.cabal/bin"),
     path("~/.cargo/bin"),
     $PNPM_HOME,
 ])
