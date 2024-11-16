@@ -31,14 +31,16 @@ $PATH.extend([
     path("~/.ghcup/bin"),
     path("~/.cabal/bin"),
     path("~/.cargo/bin"),
+    path("~/.elan/bin"),
     $PNPM_HOME,
 ])
 
 
 INCLUDE_PATH = [
     "/usr/local/share/koka/v3.1.2/kklib/include",
-    "/home/lambda/.ghcup/ghc/9.10.1/lib/ghc-9.10.1/lib/x86_64-linux-ghc-9.10.1/rts-1.0.2/include",
+    path("~/.ghcup/ghc/9.10.1/lib/ghc-9.10.1/lib/x86_64-linux-ghc-9.10.1/rts-1.0.2/include"),
     "/usr/include/python3.12",
+    path("~/.elan/toolchains/stable/include"),
 ]
 $C_INCLUDE_PATH = EnvPath(INCLUDE_PATH)
 $CPLUS_INCLUDE_PATH = EnvPath(INCLUDE_PATH)
