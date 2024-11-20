@@ -32,6 +32,11 @@ $PATH.extend([
     path("~/.cabal/bin"),
     path("~/.cargo/bin"),
     path("~/.elan/bin"),
+    path("~/Code/FOSS/zig"),
+    path("~/Code/FOSS/zls/zig-out/bin"),
+    path("~/Code/FOSS/odin"),
+    path("~/Code/FOSS/ols"),
+    path("~/Code/FOSS/aseprite/build/bin"),
     $PNPM_HOME,
 ])
 
