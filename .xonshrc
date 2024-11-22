@@ -37,6 +37,7 @@ $PATH.extend([
     path("~/Code/FOSS/odin"),
     path("~/Code/FOSS/ols"),
     path("~/Code/FOSS/aseprite/build/bin"),
+    path("~/Code/FOSS/slang/bin"),
     $PNPM_HOME,
 ])
 
@@ -53,6 +54,8 @@ $LD_LIBRARY_PATH = EnvPath([
     "/usr/local/lib",
 ])
 
+$MANPAGER="sh -c 'col -bx | bat -l man -p'"
+$MANROFFOPT="-c"
 
 aliases.update({
     "py": "python",
