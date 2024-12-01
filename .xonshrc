@@ -1,8 +1,6 @@
 # type: ignore
-import importlib
-import sys
 from xonsh.tools import EnvPath
-from pathlib import Path
+import requests
 
 def alias(name: str):
     def deco(func):
@@ -12,11 +10,7 @@ def alias(name: str):
         return func
     return deco
 
-def path(s: str) -> str:
-    return str(Path(s).expanduser())
-
-
-$VIRTUALENV_HOME = path("~/Env")
+$VIRTUALENV_HOME = str(p"~/Env")
 xontrib load zoxide
 xontrib load vox
 vox activate py312
@@ -24,35 +18,35 @@ clear
 
 
 $PROMPT = "{INTENSE_GREEN}[{cwd}]{RESET}\n"
-$PNPM_HOME = path("~/Env/pnpm")
+$PNPM_HOME = "~/Env/pnpm"
 $PATH.add("/usr/lib/ccache/bin", front=True)
 $PATH.extend([
-    path("~/Bin"),
-    path("~/Bin/Godot"),
-    path("~/.ghcup/bin"),
-    path("~/.cabal/bin"),
-    path("~/.cargo/bin"),
-    path("~/.elan/bin"),
-    path("~/Code/FOSS/zig"),
-    path("~/Code/FOSS/zls/zig-out/bin"),
-    path("~/Code/FOSS/odin"),
-    path("~/Code/FOSS/ols"),
-    path("~/Code/FOSS/aseprite/build/bin"),
-    path("~/Code/FOSS/slang/bin"),
+    "~/Bin",
+    "~/Bin/Godot",
+    "~/.ghcup/bin",
+    "~/.cabal/bin",
+    "~/.cargo/bin",
+    "~/.elan/bin",
+    "~/Code/FOSS/zig",
+    "~/Code/FOSS/zls/zig-out/bin",
+    "~/Code/FOSS/odin",
+    "~/Code/FOSS/ols",
+    "~/Code/FOSS/aseprite/build/bin",
+    "~/Code/FOSS/slang/bin",
     $PNPM_HOME,
 ])
 
 
 INCLUDE_PATH = [
     "/usr/local/share/koka/v3.1.2/kklib/include",
-    path("~/.ghcup/ghc/9.10.1/lib/ghc-9.10.1/lib/x86_64-linux-ghc-9.10.1/rts-1.0.2/include"),
+    "~/.ghcup/ghc/9.10.1/lib/ghc-9.10.1/lib/x86_64-linux-ghc-9.10.1/rts-1.0.2/include",
     "/usr/include/python3.12",
-    path("~/.elan/toolchains/stable/include"),
+    "~/.elan/toolchains/stable/include",
 ]
 $C_INCLUDE_PATH = EnvPath(INCLUDE_PATH)
 $CPLUS_INCLUDE_PATH = EnvPath(INCLUDE_PATH)
 $LD_LIBRARY_PATH = EnvPath([
-    "/usr/local/lib",
+    p"/usr/local/lib",
 ])
 
 $MANPAGER="sh -c 'col -bx | bat -l man -p'"
@@ -81,3 +75,12 @@ def neovim(path: str = '.'):
 @alias("ls")
 def list_files(path: str = ".", level: int = 2):
     exa @(path) --icons --long --all --tree --level @(level)
+
+AOC_SESSION: str = p"~/.aoc_session".read_text().strip()
+AOC_HEADERS: dict[str, str] = {"Cookie": f"session={AOC_SESSION}"}
+@alias("aoc")
+def advent_of_code(year: str, day: str, file_path: str):
+    response = requests.get(f"https://adventofcode.com/{year}/day/{day}/input", headers = AOC_HEADERS)
+    with open(file_path, "w") as file:
+        file.write(response.text)
+
