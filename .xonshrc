@@ -27,6 +27,7 @@ $PATH.extend([
     "~/.cabal/bin",
     "~/.cargo/bin",
     "~/.elan/bin",
+    "~/.local/bin",
     "~/Code/FOSS/zig",
     "~/Code/FOSS/zls/zig-out/bin",
     "~/Code/FOSS/odin",
@@ -74,7 +75,8 @@ def neovim(path: str = '.'):
 
 @alias("ls")
 def list_files(path: str = ".", level: int = 2):
-    exa @(path) --icons --long --all --tree --level @(level)
+    exa @(path) --icons --long --all --tree --level @(level) --ignore-glob "dist-newstyle|build|*.egg*|artifact|__pycache__"
+
 
 AOC_SESSION: str = p"~/.aoc_session".read_text().strip()
 AOC_HEADERS: dict[str, str] = {"Cookie": f"session={AOC_SESSION}"}
