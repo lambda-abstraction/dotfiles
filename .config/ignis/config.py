@@ -132,23 +132,23 @@ Widget.Window(
         start_widget=Widget.Box(
             spacing=10,
             child=[
-                workspaces(),
-                window_title(),
+                # workspaces(),
+                # window_title(),
             ],
         ),
         center_widget=Widget.Box(
             spacing=20,
             child=[
                 clock(),
-                speaker_volume(),
-                speaker_slider(),
+                # speaker_volume(),
+                # speaker_slider(),
             ],
         ),
         end_widget=Widget.Box(
             spacing=30,
             child=[
-                media(),
-                resources(),
+                # media(),
+                # resources(),
             ],
         ),
     ),
