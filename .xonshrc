@@ -47,7 +47,7 @@ INCLUDE_PATH = [
 $C_INCLUDE_PATH = EnvPath(INCLUDE_PATH)
 $CPLUS_INCLUDE_PATH = EnvPath(INCLUDE_PATH)
 $LD_LIBRARY_PATH = EnvPath([
-    p"/usr/local/lib",
+    "/usr/local/lib",
 ])
 
 $MANPAGER="sh -c 'col -bx | bat -l man -p'"
@@ -75,7 +75,7 @@ def neovim(path: str = '.'):
 
 @alias("ls")
 def list_files(path: str = ".", level: int = 2):
-    exa @(path) --icons --long --all --tree --level @(level) --ignore-glob "dist-newstyle|build|*.egg*|artifact|__pycache__"
+    exa @(path) --icons --long --all --tree --level @(level) --ignore-glob "dist-newstyle|build|*.egg*|artifact|__pycache__|*.o|*.hi"
 
 
 AOC_SESSION: str = p"~/.aoc_session".read_text().strip()
