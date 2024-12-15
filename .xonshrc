@@ -19,7 +19,7 @@ clear
 
 $PROMPT = "{INTENSE_GREEN}[{cwd}]{RESET}\n"
 $PNPM_HOME = "~/Env/pnpm"
-$PATH.add("/usr/lib/ccache/bin", front=True)
+# $PATH.add("/usr/lib/ccache/bin", front=True)
 $PATH.extend([
     "~/Bin",
     "~/Bin/Godot",
