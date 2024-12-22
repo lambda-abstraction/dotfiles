@@ -19,7 +19,7 @@ clear
 
 $PROMPT = "{INTENSE_GREEN}[{cwd}]{RESET}\n"
 $PNPM_HOME = "~/Env/pnpm"
-# $PATH.add("/usr/lib/ccache/bin", front=True)
+$PATH.add("/usr/lib/ccache/bin", front=True)
 $PATH.extend([
     "~/Bin",
     "~/Bin/Godot",
@@ -48,6 +48,7 @@ $C_INCLUDE_PATH = EnvPath(INCLUDE_PATH)
 $CPLUS_INCLUDE_PATH = EnvPath(INCLUDE_PATH)
 $LD_LIBRARY_PATH = EnvPath([
     "/usr/local/lib",
+    "~/.elan/toolchains/stable/lib/lean",
 ])
 
 $MANPAGER="sh -c 'col -bx | bat -l man -p'"
