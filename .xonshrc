@@ -13,7 +13,7 @@ def alias(name: str):
 $VIRTUALENV_HOME = str(p"~/Env")
 xontrib load zoxide
 xontrib load vox
-vox activate py312
+vox activate py313
 clear
 
 
@@ -41,7 +41,7 @@ $PATH.extend([
 INCLUDE_PATH = [
     "/usr/local/share/koka/v3.1.2/kklib/include",
     "~/.ghcup/ghc/9.10.1/lib/ghc-9.10.1/lib/x86_64-linux-ghc-9.10.1/rts-1.0.2/include",
-    "/usr/include/python3.12",
+    "/usr/include/python3.13",
     "~/.elan/toolchains/stable/include",
 ]
 $C_INCLUDE_PATH = EnvPath(INCLUDE_PATH)
