@@ -1,6 +1,9 @@
 # type: ignore
 from xonsh.tools import EnvPath
 import requests
+import sys
+import importlib
+from pathlib import Path
 
 def alias(name: str):
     def deco(func):
@@ -17,9 +20,8 @@ vox activate py313
 clear
 
 
-$PROMPT = "{INTENSE_GREEN}[{cwd}]{RESET}\n"
+$PROMPT = "{INTENSE_GREEN}[{cwd}] {INTENSE_CYAN}({localtime}){RESET}\n"
 $PNPM_HOME = "~/Env/pnpm"
-$PATH.add("/usr/lib/ccache/bin", front=True)
 $PATH.extend([
     "~/Bin",
     "~/Bin/Godot",
@@ -27,6 +29,7 @@ $PATH.extend([
     "~/.cabal/bin",
     "~/.cargo/bin",
     "~/.elan/bin",
+    "~/.modular/bin",
     "~/.local/bin",
     "~/Code/FOSS/zig",
     "~/Code/FOSS/zls/zig-out/bin",
@@ -76,7 +79,7 @@ def neovim(path: str = '.'):
 
 @alias("ls")
 def list_files(path: str = ".", level: int = 2):
-    exa @(path) --icons --long --all --tree --level @(level) --ignore-glob "dist-newstyle|build|*.egg*|artifact|__pycache__|*.o|*.hi"
+    exa @(path) --icons --long --all --tree --level @(level)
 
 
 AOC_SESSION: str = p"~/.aoc_session".read_text().strip()
@@ -86,4 +89,22 @@ def advent_of_code(year: str, day: str, file_path: str):
     response = requests.get(f"https://adventofcode.com/{year}/day/{day}/input", headers = AOC_HEADERS)
     with open(file_path, "w") as file:
         file.write(response.text)
+
+@alias("mod")
+def local_module(name: str):
+    cwd = str(Path.cwd())
+    if cwd not in sys.path:
+        print(f"Working directory not in sys.path, appending: {cwd!s}")
+        sys.path.append(cwd)
+    if name in sys.modules:
+        print(f"Module {name!r} exists, reloading")
+        del sys.modules[name]
+        del globals()[name]
+    try:
+        mod = importlib.import_module(name)
+        sys.modules[name] = mod
+        globals()[name] = mod
+        print(f"Loaded module {name!r}")
+    except ImportError:
+        print(f"No module {name!r} found")
 
