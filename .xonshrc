@@ -29,7 +29,6 @@ $PATH.extend([
     "~/.cabal/bin",
     "~/.cargo/bin",
     "~/.elan/bin",
-    "~/.modular/bin",
     "~/.local/bin",
     "~/Code/FOSS/zig",
     "~/Code/FOSS/zls/zig-out/bin",
@@ -54,8 +53,8 @@ $LD_LIBRARY_PATH = EnvPath([
     "~/.elan/toolchains/stable/lib/lean",
 ])
 
-$MANPAGER="sh -c 'col -bx | bat -l man -p'"
-$MANROFFOPT="-c"
+$MANPAGER = "sh -c 'col -bx | bat -l man -p'"
+$MANROFFOPT = "-c"
 
 aliases.update({
     "py": "python",
