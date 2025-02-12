@@ -21,7 +21,7 @@ clear
 
 
 $PROMPT = "{INTENSE_GREEN}[{cwd}] {INTENSE_CYAN}({localtime}){RESET}\n"
-$PNPM_HOME = "~/Env/pnpm"
+$PNPM_HOME = str(p"~/Env/pnpm")
 $PATH.extend([
     "~/Bin",
     "~/Bin/Godot",
@@ -30,6 +30,7 @@ $PATH.extend([
     "~/.cargo/bin",
     "~/.elan/bin",
     "~/.local/bin",
+    "~/.codon/bin",
     "~/Code/FOSS/zig",
     "~/Code/FOSS/zls/zig-out/bin",
     "~/Code/FOSS/odin",
@@ -107,3 +108,19 @@ def local_module(name: str):
     except ImportError:
         print(f"No module {name!r} found")
 
+VS_HOME: Path = p"/opt/visual-studio-code"
+WORKBENCH_CSS: Path = VS_HOME / "resources/app/out/vs/workbench/workbench.desktop.main.css"
+USERNAME: str = $(whoami)
+EDITS: list[tuple[Path, str]] = [
+    (WORKBENCH_CSS, """\
+.window-appicon, .window-title {
+    display: none;
+}"""),
+]
+@alias("vscustom")
+def edit_vscode():
+    if VS_HOME.owner() != USERNAME:
+        print(f"Changing owner of {VS_HOME}")
+        sudo chown -R @(USERNAME) @(VS_HOME)
+    for file, edit in EDITS:
+        file.open("a").write(edit)
