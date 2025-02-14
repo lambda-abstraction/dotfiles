@@ -21,6 +21,7 @@ clear
 
 
 $PROMPT = "{INTENSE_GREEN}[{cwd}] {INTENSE_CYAN}({localtime}){RESET}\n"
+$MULTILINE_PROMPT = ""
 $PNPM_HOME = str(p"~/Env/pnpm")
 $PATH.extend([
     "~/Bin",
