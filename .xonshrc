@@ -71,7 +71,7 @@ aliases.update({
 @alias("c")
 def vscode(path: str = '.'):
     z @(path)
-    code -r --password-store=gnome-libsecret . &
+    code -r --password-store=gnome-libsecret . &> /dev/null
 
 @alias("n")
 def neovim(path: str = '.'):
@@ -120,8 +120,8 @@ EDITS: list[tuple[Path, str]] = [
 ]
 @alias("vscustom")
 def edit_vscode():
-    if VS_HOME.owner() != USERNAME:
-        print(f"Changing owner of {VS_HOME}")
-        sudo chown -R @(USERNAME) @(VS_HOME)
     for file, edit in EDITS:
+        if file.owner() != USERNAME:
+            print(f"Changing owner of {file}")
+            sudo chown -R @(USERNAME) @(file)
         file.open("a").write(edit)
